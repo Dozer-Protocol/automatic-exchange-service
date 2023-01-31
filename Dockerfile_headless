@@ -1,0 +1,4 @@
+FROM hathornetwork/hathor-wallet-headless
+
+RUN npm install ws
+RUN npm install yargs
