@@ -8,8 +8,8 @@ from time import sleep
 def test_multiple_tx():
 
     w= Wallet.objects.get(name='Test Wallet')
-    for i in range(1,8):
-        print(f'{i} envio')
+    for i in range(1,3):
+        print(f'{i} sent')
         w.sendToken("Wkc1QXWq4RvW1EAPgzPpoZNbLWx3fmL86t",i*25,"00")
         sleep(1)
 

@@ -35,8 +35,7 @@ def setup():
     w.save()
     w.stopWallet()
     w.startWallet()
-    w.setToken('00b84e59d2067100246ca4fdc0926ca9ff276083cde6c191e0ecdb941e77dd8b')
-    w.setToken('00b1b246cb512515c5258cb0301afcf83e74eb595dbe655d14e11782db4b70c6')
+    w.setToken(settings.TOKEN_UUID)
     w.refreshWallet()
 
     w1=Wallet()
@@ -45,13 +44,12 @@ def setup():
     w1.passphrase=settings.WALLET_PASS_TEST
     w1.save()
     w1.stopWallet()
-    w1.startWallet()
-    w1.setToken('00b84e59d2067100246ca4fdc0926ca9ff276083cde6c191e0ecdb941e77dd8b')
-    w1.setToken('00b1b246cb512515c5258cb0301afcf83e74eb595dbe655d14e11782db4b70c6')
+    w1.startWallet()    
+    w1.setToken(settings.TOKEN_UUID)
     w1.refreshWallet()
 
     management.call_command('process_tasks')
-    management.call_command('runserver','0.0.0.0:8080')
+    # management.call_command('runserver','0.0.0.0:8080')
 
     
 

@@ -15,11 +15,10 @@ class Wallet(models.Model):
     balance=models.JSONField(null=True)
     ready=models.BooleanField(default=False)
     seedKey=models.CharField(max_length=50,default="default")
-    testnet=models.BooleanField(default=True)    
     passphrase=models.CharField(max_length=100,default=settings.WALLET_PASS)    
     
     def startWallet(self):    
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/start')        
+        url = urllib.parse.urljoin('http://wallet:8000', '/start')        
         headers = {
             "Content-Type": "application/x-www-form-urlencoded",
         }
@@ -45,7 +44,7 @@ class Wallet(models.Model):
         return self
 
     def stopWallet(self):    
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/wallet/stop')        
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/stop')        
         headers = {
             "X-Wallet-Id": self.wallet_id
         }        
@@ -67,7 +66,7 @@ class Wallet(models.Model):
                 self.delete()
 
     def getAddress(self):    
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/wallet/addresses')
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/addresses')
         headers = {
             "X-Wallet-Id": self.wallet_id
         }
@@ -83,7 +82,7 @@ class Wallet(models.Model):
             print(response.json()['message'])
 
     def getReady(self):    
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/wallet/status')
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/status')
         headers = {
             "X-Wallet-Id": self.wallet_id
         }
@@ -108,7 +107,7 @@ class Wallet(models.Model):
             
 
     def getBalance(self):            
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/wallet/balance')
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/balance')
         headers = {
             "X-Wallet-Id": self.wallet_id
         }
@@ -168,7 +167,7 @@ class Wallet(models.Model):
         self.save()
 
     def sendToken(self,address,amount=100,token="00"):
-        url = urllib.parse.urljoin(settings.WALLET_BASE_URL_TESTNET if self.testnet else settings.WALLET_BASE_URL_MAINNET, '/wallet/simple-send-tx')        
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/simple-send-tx')        
         headers = {
             "Content-Type": "application/json",
             "X-Wallet-Id": self.wallet_id
@@ -199,4 +198,4 @@ class Tx(models.Model):
     sendAddress=models.CharField(max_length=1000,null=True)
     creation_time=models.TimeField(auto_now_add=True,null=True)
     htr_amount=models.IntegerField()
-    dzr_amount=models.IntegerField()
+    token_amount=models.IntegerField()

@@ -29,18 +29,15 @@ DEBUG = True
 ALLOWED_HOSTS = ['interface','wallet_testnet', 'wallet_mainnet','backend','localhost']
 
 
-NODE_URL_TESTNET='https://node1.testnet.hathor.network'
-NODE_URL_MAINNET='https://node1.mainnet.hathor.network'
-
-WALLET_BASE_URL_TESTNET='http://wallet_testnet:9000'
-WALLET_BASE_URL_MAINNET='http://wallet_mainnet:8000'
-
 WALLET_PASS_TEST=os.environ.get('WALLET_PASS_TEST')
 WALLET_PASS=os.environ.get('WALLET_PASS')
 
 WALLET_ID=os.environ.get('WALLET_ID')
 
 TOKEN_PRICE=os.environ.get('TOKEN_PRICE')
+TOKEN_UUID=os.environ.get('TOKEN_UUID')
+
+FEES=os.environ.get('FEES')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,8 +52,7 @@ INSTALLED_APPS = [
     'background_task'
 ]
 
-WEBSOCKETCLIENT_HOST = "wallet_testnet:7000"
-# WEBSOCKETCLIENT_HOST = "wallet_mainnet:6000"
+WEBSOCKETCLIENT_HOST = "wallet:7000"
 WEBSOCKETCLIENT_MESSAGE_HANDLER = "dozer.handlers.message_handler"
 
 MAX_ATTEMPTS = 10
