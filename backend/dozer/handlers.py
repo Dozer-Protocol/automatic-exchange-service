@@ -4,10 +4,8 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 
 
-def registerTx(response,sendAddress):
-    print('registrando')
-    createTx(response,sendAddress)
-    print('registrou')
+def registerTx(response,sendAddress,buyback):
+    createTx(response,sendAddress,buyback)
     return True
 
 async def message_handler(message, websocket):    
@@ -16,8 +14,11 @@ async def message_handler(message, websocket):
         data=response['data']
         inputs=data['inputs']               
         for input in inputs:
-            if (input['token']=='00'):
-                print(f"send address {input['decoded']['address']}")   
-                await sync_to_async(registerTx,thread_sensitive=True)(response,input['decoded']['address'])
-                print('saiu do await')
+            if (input['token']=='00' and input['decoded']['address']!=settings.RECEIVE_ADDRESS):
+                print(f"address {input['decoded']['address']} sent {input['token']}")   
+                await sync_to_async(registerTx,thread_sensitive=True)(response,input['decoded']['address'],False)
+                break
+            if (input['token']==settings.TOKEN_UUID and input['decoded']['address']!=settings.RECEIVE_ADDRESS):
+                print(f"address {input['decoded']['address']} sent {input['token']}")   
+                await sync_to_async(registerTx,thread_sensitive=True)(response,input['decoded']['address'],True)
                 break

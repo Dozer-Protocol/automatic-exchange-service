@@ -35,7 +35,9 @@ WALLET_PASS=os.environ.get('WALLET_PASS')
 WALLET_ID=os.environ.get('WALLET_ID')
 
 TOKEN_PRICE=os.environ.get('TOKEN_PRICE')
+TOKEN_BUYBACK_PRICE=os.environ.get('TOKEN_BUYBACK_PRICE')
 TOKEN_UUID=os.environ.get('TOKEN_UUID')
+RECEIVE_ADDRESS=os.environ.get('RECEIVE_ADDRESS')
 
 FEES=os.environ.get('FEES')
 

@@ -199,3 +199,4 @@ class Tx(models.Model):
     creation_time=models.TimeField(auto_now_add=True,null=True)
     htr_amount=models.IntegerField()
     token_amount=models.IntegerField()
+    buyback=models.BooleanField(default=False)

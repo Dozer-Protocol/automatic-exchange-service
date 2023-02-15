@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core import management
 from django.db import connections
 from django.db.utils import OperationalError
+from django.contrib.auth.models import User
 
 def setup():
     connected=False
@@ -47,6 +48,7 @@ def setup():
     w1.startWallet()    
     w1.setToken(settings.TOKEN_UUID)
     w1.refreshWallet()
+
 
     management.call_command('process_tasks')
     # management.call_command('runserver','0.0.0.0:8080')

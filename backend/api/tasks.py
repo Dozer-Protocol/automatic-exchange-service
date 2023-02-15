@@ -2,36 +2,65 @@ from background_task import background
 from .models import Tx,Wallet
 from django.conf import settings
 import logging
+from math import ceil,floor
 
 logger = logging.getLogger('')
 
 @background(schedule=30)
-def createTx(response,sendAddress):
+def createTx(response,sendAddress,buyback):
     wallet=Wallet.objects.get(name='wallet')
     data=response['data']
     outputs=data['outputs']    
+    if settings.FEES:
+        fees=0.02
+    else:
+        fees=0
     tx=Tx() 
     tx.htr_amount=0
+    tx.token_amount=0
+    tx.buyback=buyback
     tx.sendAddress=sendAddress
-    wallet_balance=0
-    for output in outputs:
-        if (output['token']=='00') and (output['decoded']['address']==wallet.address):
-                logger.warning(f"sent {output['value']}")   
-                tx.htr_amount+=output['value']              
+    wallet_htr_balance=0
+    wallet_token_balance=0
     wallet.refreshWallet()
-    tx.token_amount=int(tx.htr_amount/float(settings.TOKEN_PRICE))
-    tx.save()
     for balance in wallet.balance:
         if(balance['token']=='00'):
-            logger.warning(f"Wallet have {balance['available']}")
-            wallet_balance=balance['available']
-            break
-    logger.warning(f"will receive {tx.token_amount}")
-    if (wallet_balance>tx.token_amount) and tx.token_amount>0:
-        logger.warning("Wallet has available token")
-        wallet.sendToken(tx.sendAddress,tx.token_amount,settings.TOKEN_UUID)
-        if(settings.FEES) and (int(tx.htr_amount*2/100)>0):
-            wallet.sendToken('Wkc1QXWq4RvW1EAPgzPpoZNbLWx3fmL86t',tx.htr_amount*2/100,"00")
+            logger.warning(f"Wallet have {balance['available']} HTR")
+            wallet_htr_balance=balance['available']
+        if(balance['token']==settings.TOKEN_UUID):
+            logger.warning(f"Wallet have {balance['available']} tokens")
+            wallet_token_balance=balance['available']    
+    if buyback:
+        for output in outputs:
+            if (output['token']==settings.TOKEN_UUID) and (output['decoded']['address']==settings.RECEIVE_ADDRESS):
+                    logger.warning(f"received {output['value']} {output['token']}")   
+                    tx.token_amount+=output['value']              
+        tx.htr_amount=floor(tx.token_amount*(1-fees)*float(settings.TOKEN_BUYBACK_PRICE))
+        tx.save()
+        logger.warning(f"will send {tx.htr_amount} HTR")
+        if (wallet_htr_balance>tx.htr_amount) and tx.htr_amount>0:
+            logger.warning("Wallet has available token")
+            wallet.sendToken(tx.sendAddress,tx.htr_amount,"00")
+            if settings.FEES:
+                logger.warning(f"sending {ceil(fees*tx.token_amount*float(settings.TOKEN_BUYBACK_PRICE))} htr as fees")
+                # wallet.sendToken("WWKbW1kKWjCcH4m8PFUvteQDDCuDbXX5zk", ceil(fees*tx.token_amount*float(settings.TOKEN_BUYBACK_PRICE)), "00")
+        else:
+            logger.warning("Wallet has no available HTR, sending token back")
+            wallet.sendToken(tx.sendAddress,tx.token_amount,settings.TOKEN_UUID)     
     else:
-        logger.warning("Wallet has no available tokens, sending HTR back")
-        wallet.sendToken(tx.sendAddress,tx.htr_amount,"00")
+        for output in outputs:
+            if (output['token']=="00") and (output['decoded']['address']==settings.RECEIVE_ADDRESS):
+                    logger.warning(f"received {output['value']} {output['token']}")   
+                    tx.htr_amount+=output['value']              
+        tx.token_amount=floor(tx.htr_amount*(1-fees)/float(settings.TOKEN_PRICE))
+        tx.save()
+        logger.warning(f"will send {tx.token_amount} token")
+        if (wallet_token_balance>tx.token_amount) and tx.token_amount>0:
+            logger.warning("Wallet has available token")
+            wallet.sendToken(tx.sendAddress,tx.token_amount,settings.TOKEN_UUID)
+            if settings.FEES:
+                logger.warning(f"sending {ceil(fees*tx.htr_amount)} HTR as fees")
+                # wallet.sendToken("WWKbW1kKWjCcH4m8PFUvteQDDCuDbXX5zk", ceil(fees*tx.token_amount), "00")
+        else:
+            logger.warning("Wallet has no available tokens, sending HTR back")
+            wallet.sendToken(tx.sendAddress,tx.htr_amount,"00") 
