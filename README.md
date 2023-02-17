@@ -50,3 +50,33 @@ If you want to run at mainnet, comment the wallet service and uncomment the belo
 With the parameters set, `docker-compose.template.yml` can be renamed to `docker-compose.yml` and you can call `docker compose build` and `docker compose up` 
 
 This will build the services and setup the wallets (main and test).
+
+## How it works?
+
+With all the services running, the platform is ready to get new TX sent to the address informed on `RECEIVE_ADDRESS`. There are two types of TX will be processed by the platform:
+
+### Buy
+
+This is the regular TX: HTR will be sent to the `RECEIVE_ADDRESS` and the amount of token (when referencing **token**, it is the one specified by `TOKEN_UUID`) will be calculated using the `TOKEN_PRICE` parameter.
+
+The main wallet will then verify if there is balance available for the TX and will send the token amount to the same address which sent the first transaction. If there is no available balance in main wallet, the HTR amount received will be sent back to the owner.
+
+### Buyback
+
+There will be someone that whant to send back the token bought, this is also possible using this ICO platorm.
+
+When a TX received in `RECEIVE_ADDRESS` has the `TOKEN_UUID` token as input, a buyback action will be start: the amount of HTR to be sent is calculated using the `TOKEN_BUYBACK_PRICE` parameter.
+
+The same balance check of the Buy action will be made before sending the HTR back.
+
+## TX check
+
+All the received transactions are registered on database. And the fields for each one are:
+
+- creation_time - Register the time that the TX are verified by the websocket plugin, will easy the search for non-complete TX;
+- txid_receive - First TX (receiving token or HTR by user) ID, will also help on search for problems;
+- txid_send - "Answer" TX ID, to check and comprove the send of HTR or token to user
+- htr_amount - self-explanatory
+- token_amount - self-explanatory
+- buyback - boolean field to show if it is a buyback transaction
+- success - boolean field to represent the success of the entire transaction (enough balance)

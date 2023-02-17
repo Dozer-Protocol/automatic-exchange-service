@@ -55,10 +55,10 @@ def setup():
         pass
 
 
-    os.system('python manage.py runserver 0.0.0.0:8080 & python manage.py process_tasks')
+    os.system('python manage.py runserver 0.0.0.0:8080 & python manage.py process_tasks &')
 
     
-
+    print('#### All services running! ####')
 
 if __name__=='__main__':
     setup()
