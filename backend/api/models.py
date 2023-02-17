@@ -195,8 +195,11 @@ class Wallet(models.Model):
 
     
 class Tx(models.Model):
+    txid_receive=models.CharField(max_length=1000,null=True)
+    txid_send=models.CharField(max_length=1000,null=True)
     sendAddress=models.CharField(max_length=1000,null=True)
-    creation_time=models.TimeField(auto_now_add=True,null=True)
+    creation_time=models.DateTimeField(auto_now_add=True,null=True)
     htr_amount=models.IntegerField()
     token_amount=models.IntegerField()
     buyback=models.BooleanField(default=False)
+    success=models.BooleanField(default=False)

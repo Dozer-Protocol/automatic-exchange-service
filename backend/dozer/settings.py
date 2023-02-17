@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['interface','wallet_testnet', 'wallet_mainnet','backend','localhost']
 
+MAX_ATTEMPTS = 1
 
 WALLET_PASS_TEST=os.environ.get('WALLET_PASS_TEST')
 WALLET_PASS=os.environ.get('WALLET_PASS')
@@ -38,6 +39,8 @@ TOKEN_PRICE=os.environ.get('TOKEN_PRICE')
 TOKEN_BUYBACK_PRICE=os.environ.get('TOKEN_BUYBACK_PRICE')
 TOKEN_UUID=os.environ.get('TOKEN_UUID')
 RECEIVE_ADDRESS=os.environ.get('RECEIVE_ADDRESS')
+
+ADMIN_DJANGO_PASSWORD=os.environ.get('ADMIN_DJANGO_PASSWORD')
 
 FEES=os.environ.get('FEES')
 

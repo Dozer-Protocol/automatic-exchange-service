@@ -49,9 +49,13 @@ def setup():
     w1.setToken(settings.TOKEN_UUID)
     w1.refreshWallet()
 
+    try:
+        User.objects.create_superuser('admin','admin@admin.com',settings.ADMIN_DJANGO_PASSWORD)
+    except Exception as exp:
+        pass
 
-    management.call_command('process_tasks')
-    # management.call_command('runserver','0.0.0.0:8080')
+
+    os.system('python manage.py runserver 0.0.0.0:8080 & python manage.py process_tasks')
 
     
 
