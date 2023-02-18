@@ -1,8 +1,11 @@
-# ICO Platform
-We are proud to announce our first open-source project for Hathor ecosystem! 
+<!-- # ICO Platform -->
+<!-- We are proud to announce our first open-source project for Hathor ecosystem!  -->
 
 ## What is it!?
-Planned to be used as an ICO platform for projects which are willing to sell their tokens with an automatic solution.
+<!-- Planned to be used as an ICO platform for projects which are willing to sell their tokens with an automatic solution. -->
+
+Simple token exchange machine to run on top of Hathor Network. It was build for the proof of concept of Dozer Protocol before we got into nano contracts testing.
+It can be used for an ICO platform for projects which are willing to sell their tokens with an automatic solution or for existing projects to provide liquidity for investor with fixed prices.
 
 The design is as follow
 
@@ -15,6 +18,10 @@ flowchart TD;
 Using the notification plugin bundled on headless wallet, a websocket connection between the wallet and the django backend will be responsible for trigger the TX subsequent treatment.
 
 ## Pre-requisites
+
+- Docker
+- 
+-
 
 The only thing you will need before deploy the service is a hathor wallet with an amount of the token will be on sale. Besides that, it's interesting to send all the token amount to only one address, which will be used on RECEIVE_ADDRESS parameter.
 
