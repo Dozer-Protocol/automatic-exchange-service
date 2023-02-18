@@ -53,9 +53,10 @@ backend:
 
 If you want to run at mainnet, comment the wallet service and uncomment the below wallet service, designed for mainnet, remember to change your seeds, if needed.
 
+Stop any Hathor headless wallet running on the Host.
+
 Rename `docker-compose.template.yml` to `docker-compose.yml` and execute `docker compose build` and `docker compose up` on the root of the repository.
 
-Make sure to stop any Hathor headless wallet running on the underline host.
 
 ## How it works?
 
