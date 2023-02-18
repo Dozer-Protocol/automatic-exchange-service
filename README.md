@@ -1,8 +1,10 @@
-# ICO Platform
-We are proud to announce our first open-source project for Hathor ecosystem! 
+# AES - Automatic Exchange Service
+<!-- We are proud to announce our first open-source project for Hathor ecosystem!  -->
+<!-- ## What is it!? -->
+<!-- Planned to be used as an ICO platform for projects which are willing to sell their tokens with an automatic solution. -->
 
-## What is it!?
-Planned to be used as an ICO platform for projects which are willing to sell their tokens with an automatic solution.
+Simple token exchange machine to run on top of Hathor Network. It was build for the proof of concept of Dozer Protocol before we got into nano contracts testing, and we made it open source now.
+It can be used for an ICO platform  or for existing projects to provide liquidity for its investors before nanocontracs and Dozer Swap goes live.
 
 The design is as follow
 
@@ -16,9 +18,13 @@ Using the notification plugin bundled on headless wallet, a websocket connection
 
 ## Pre-requisites
 
+- Docker
+- Hathor Wallet
+- $TokenX and $HTR
+
 The only thing you will need before deploy the service is a hathor wallet with an amount of the token will be on sale. Besides that, it's interesting to send all the token amount to only one address, which will be used on RECEIVE_ADDRESS parameter.
 
-## How to deploy
+## How to use
 
 After clone the repo, you will need to configure the parameters of the `docker-compose.template.yml` as follow:
 
@@ -47,9 +53,10 @@ backend:
 
 If you want to run at mainnet, comment the wallet service and uncomment the below wallet service, designed for mainnet, remember to change your seeds, if needed.
 
-With the parameters set, `docker-compose.template.yml` can be renamed to `docker-compose.yml` and you can call `docker compose build` and `docker compose up` 
+Stop any Hathor headless wallet running on the Host.
 
-This will build the services and setup the wallets (main and test).
+Rename `docker-compose.template.yml` to `docker-compose.yml` and execute `docker compose build` and `docker compose up` on the root of the repository.
+
 
 ## How it works?
 
