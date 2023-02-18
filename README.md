@@ -80,3 +80,7 @@ All the received transactions are registered on database. And the fields for eac
 - token_amount - self-explanatory
 - buyback - boolean field to show if it is a buyback transaction
 - success - boolean field to represent the success of the entire transaction (enough balance)
+
+To access the DB just go to `http://localhost:8080/admin` to access Django Admin page, use `admin` as username and the password set on `ADMIN_DJANGO_PASSWORD` parameter, then click on `Txs` to list all the registered transactions.
+
+Note that is possible to edit the TX fields at this screen, but it will only update the TX status on the database and **NOT** on blockchain.
