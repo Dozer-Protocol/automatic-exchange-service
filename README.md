@@ -70,7 +70,7 @@ The main wallet will then verify if there is balance available for the TX and wi
 
 ### Buyback
 
-There will be someone that whant to send back the token bought, this is also possible using this ICO platorm.
+To provide some liquidity exit for investors while there isn`t a DEX on Hathor, projects can use this service to rebuy their tokens at choosen price
 
 When a TX received in `RECEIVE_ADDRESS` has the `TOKEN_UUID` token as input, a buyback action will be start: the amount of HTR to be sent is calculated using the `TOKEN_BUYBACK_PRICE` parameter.
 
