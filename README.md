@@ -1,10 +1,10 @@
-# ICO Platform
+# AES - Automatic Exchange Service
 <!-- We are proud to announce our first open-source project for Hathor ecosystem!  -->
 <!-- ## What is it!? -->
 <!-- Planned to be used as an ICO platform for projects which are willing to sell their tokens with an automatic solution. -->
 
 Simple token exchange machine to run on top of Hathor Network. It was build for the proof of concept of Dozer Protocol before we got into nano contracts testing, and we made it open source now.
-It can be used for an ICO platform  or for existing projects to provide liquidity for its investors.
+It can be used for an ICO platform  or for existing projects to provide liquidity for its investors before nanocontracs and Dozer Swap goes live.
 
 The design is as follow
 
