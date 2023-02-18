@@ -11,7 +11,7 @@ def createTx(response,sendAddress,buyback):
     wallet=Wallet.objects.get(name='wallet')
     data=response['data']
     outputs=data['outputs']    
-    if settings.FEES:
+    if settings.FEES.lower()=='true':
         fees=0.02
     else:
         fees=0
@@ -45,7 +45,7 @@ def createTx(response,sendAddress,buyback):
             tx.txid_send=resp['hash']
             tx.success=True
             tx.save()
-            if settings.FEES:
+            if settings.FEES.lower()=='true':
                 logger.warning(f"sending {ceil(fees*tx.token_amount*float(settings.TOKEN_BUYBACK_PRICE))/100} htr as fees")
                 # wallet.sendToken("WWKbW1kKWjCcH4m8PFUvteQDDCuDbXX5zk", ceil(fees*tx.token_amount*float(settings.TOKEN_BUYBACK_PRICE)), "00")
         else:
@@ -68,7 +68,7 @@ def createTx(response,sendAddress,buyback):
             tx.success=True
             tx.txid_send=resp['hash']
             tx.save()
-            if settings.FEES:
+            if settings.FEES.lower()=='true':
                 logger.warning(f"sending {ceil(fees*tx.htr_amount)/100} HTR as fees")
                 # wallet.sendToken("WWKbW1kKWjCcH4m8PFUvteQDDCuDbXX5zk", ceil(fees*tx.token_amount), "00")
         else:

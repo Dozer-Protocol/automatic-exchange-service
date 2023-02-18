@@ -1,16 +1,24 @@
 import sys,os, django
-sys.path.append("/app/backend") #here store is root folder(means parent).
+sys.path.append("/app/backend")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dozer.settings")
 django.setup()
 from api.models import Wallet
 from time import sleep
+from django.conf import settings
 
 def test_multiple_tx():
-
+    repeat=5
     w= Wallet.objects.get(name='Test Wallet')
-    for i in range(1,3):
-        print(f'{i} sent')
-        w.sendToken("Wkc1QXWq4RvW1EAPgzPpoZNbLWx3fmL86t",i*25,"00")
+    print('### Initiating buy action test ###')
+    for i in range(1,repeat+1):
+        print(f'buy tx number {i}')
+        w.sendToken(settings.RECEIVE_ADDRESS,i*100,"00")
+        sleep(1)
+
+    print('### Initiating buyback action test ###')
+    for i in range(1,repeat+1):
+        print(f'buyback tx number {i}')
+        w.sendToken(settings.RECEIVE_ADDRESS,i*100,settings.TOKEN_UUID)
         sleep(1)
 
 
