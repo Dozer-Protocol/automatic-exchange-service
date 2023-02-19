@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 ]
 
 WEBSOCKETCLIENT_HOST = "wallet:7000"
-WEBSOCKETCLIENT_MESSAGE_HANDLER = "dozer.handlers.message_handler"
+WEBSOCKETCLIENT_MESSAGE_HANDLER = "core.handlers.message_handler"
 
 MAX_ATTEMPTS = 10
 MAX_RUN_TIME = 120
@@ -78,7 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'dozer.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -96,7 +96,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'dozer.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database

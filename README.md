@@ -26,30 +26,25 @@ The only thing you will need before deploy the service is a hathor wallet with a
 
 ## How to use
 
-After clone the repo, you will need to configure the parameters of the `docker-compose.template.yml` as follow:
+```
+git clone https://github.com/Dozer-Protocol/automatic-exchange-service
+```
+Set the following parameters of the `docker-compose.template.yml`:
 
 ```
-db:
-    - POSTGRES_DB: db name to be created
-    - POSTGRES_USER: db user
-    - POSTGRES_PASSWORD: db password
-
 backend:
-    - POSTGRES_NAME: the same of above POSTGRES_DB
-    - POSTGRES_USER: the same of above POSTGRES_USER
-    - POSTGRES_PASSWORD: the same of above POSTGRES_PASSWORD
-    - WALLET_PASS_TEST: passphrase to be used on the test wallet
-    - WALLET_PASS: passphrase to be used on the main wallet
-    - WALLET_ID: id for wallet, integer with maximum 10 digits
-    - TOKEN_PRICE: token price in HTR (for example 0.25)
-    - TOKEN_BUYBACK_PRICE: token price for the buyback function in HTR (for example 0.20)
-    - TOKEN_UUID: uuid of the token will be sold
-    - RECEIVE_ADDRESS: address that will be published for people send HTR or token, this address will be scanned for new tx
-    - FEES: set true or false for sending a 2% fee for Dozer Team
-    - ADMIN_DJANGO_PASSWORD: password for accessing the django admin panel
+    - WALLET_PASS_TEST=<passphrase_for_test_wallet>
+      - WALLET_PASS=<passphrase_for_main_wallet>
+      - WALLET_ID=<id_for_wallet>
+      - TOKEN_PRICE=<token_price_in_htr>
+      - TOKEN_BUYBACK_PRICE=<token_price_for_buyback_action_in_htr>
+      - TOKEN_UUID=<uuid_of_selling_token>
+      - RECEIVE_ADDRESS=<address_to_scan_for_received_tokens>
  wallet:
       - HEADLESS_SEED_DEFAULT: enter your seeds separeted with spaces and without quotes
 ```
+
+Those are local enviroment varibles that needs to be set on the local docker container.
 
 If you want to run at mainnet, comment the wallet service and uncomment the below wallet service, designed for mainnet, remember to change your seeds, if needed.
 
@@ -57,7 +52,11 @@ Stop any Hathor headless wallet running on the Host.
 
 Rename `docker-compose.template.yml` to `docker-compose.yml` and execute `docker compose build` and `docker compose up` on the root of the repository.
 
-
+```
+mv docker-compose.template.yml docker-compose.yml
+docker compose build
+docker compose up
+```
 ## How it works?
 
 With all the services running, the platform is ready to get new TX sent to the address informed on `RECEIVE_ADDRESS`. There are two types of TX will be processed by the platform:
