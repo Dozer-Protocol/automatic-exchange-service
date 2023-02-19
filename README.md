@@ -44,7 +44,7 @@ backend:
       - HEADLESS_SEED_DEFAULT: enter your seeds separeted with spaces and without quotes
 ```
 
-Those are local enviroment varibles that needs to be set on the local docker container.
+Those are local enviroment varibles that needs to be set on the local docker container. There is a 1% fee to Dozer protocol treasure to funding development.
 
 If you want to run at mainnet, comment the wallet service and uncomment the below wallet service, designed for mainnet, remember to change your seeds, if needed.
 
@@ -90,3 +90,6 @@ All the received transactions are registered on database. And the fields for eac
 To access the DB just go to `http://localhost:8080/admin` to access Django Admin page, use `admin` as username and the password set on `ADMIN_DJANGO_PASSWORD` parameter, then click on `Txs` to list all the registered transactions.
 
 Note that is possible to edit the TX fields at this screen, but it will only update the TX status on the database and **NOT** on blockchain.
+
+# Donations
+Hathor: H7hwed6NR6fLQN1Sh7P7ddC5BmoDLu9kkh
