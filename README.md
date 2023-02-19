@@ -61,13 +61,13 @@ docker compose up
 
 With all the services running, the platform is ready to get new TX sent to the address informed on `RECEIVE_ADDRESS`. There are two types of TX will be processed by the platform:
 
-### Buy
+### Selling
 
 This is the regular TX: HTR will be sent to the `RECEIVE_ADDRESS` and the amount of token (when referencing **token**, it is the one specified by `TOKEN_UUID`) will be calculated using the `TOKEN_PRICE` parameter.
 
 The main wallet will then verify if there is balance available for the TX and will send the token amount to the same address which sent the first transaction. If there is no available balance in main wallet, the HTR amount received will be sent back to the owner.
 
-### Buyback
+### Rebuy
 
 To provide some liquidity exit for investors while there isn`t a DEX on Hathor, projects can use this service to rebuy their tokens at choosen price
 

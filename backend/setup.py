@@ -1,6 +1,6 @@
 import sys,os, django
 sys.path.append("/app/backend") #here store is root folder(means parent).
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dozer.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 django.setup()
 from api.models import Wallet
 from time import sleep
