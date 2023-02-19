@@ -6,8 +6,8 @@ services:
       image: postgres
       environment:
         - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_USER=dozerSwap
+        - POSTGRES_PASSWORD=FSwPNZU3QrUGHD9T2tFxCevF4DfXS
 
   backend:
     container_name: backend
@@ -20,10 +20,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres      
-      - CHOKIDAR_USEPOLLING=true
       - WALLET_PASS_TEST=<passphrase_for_test_wallet>
       - WALLET_PASS=<passphrase_for_main_wallet>
       - WALLET_ID=<id_for_wallet>
@@ -31,8 +27,12 @@ services:
       - TOKEN_BUYBACK_PRICE=<token_price_for_buyback_action_in_htr>
       - TOKEN_UUID=<uuid_of_selling_token>
       - RECEIVE_ADDRESS=<address_to_scan_for_received_tokens>
-      - FEES=<send_fees_for_dozer_team>
-      - ADMIN_DJANGO_PASSWORD=<password_for_accessing_django_admin>
+#
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=dozerSwap
+      - POSTGRES_PASSWORD=FSwPNZU3QrUGHD9T2tFxCevF4DfXS      
+      - CHOKIDAR_USEPOLLING=true
+      - ADMIN_DJANGO_PASSWORD=nr4zm2qJFebUV4BAMS2VnbRmCwmgP
 
     depends_on:
       - db

@@ -193,6 +193,40 @@ class Wallet(models.Model):
             print(response.json())
             raise Exception('Failed to send Token')
 
+
+    def sendTokens(self,address1, amount1, token1, address2, amount2,  token2):
+        url = urllib.parse.urljoin('http://wallet:8000', '/wallet/send-tx')        
+        headers = {
+            "Content-Type": "application/json",
+            "X-Wallet-Id": self.wallet_id
+        }
+        data = {
+            "outputs":[{
+            "address": address1,
+            "value": amount1,
+            "token": token1,
+            },
+            {
+            "address": address2,
+            "value": amount2,
+            "token": token2,
+            }],
+            "change_address": self.getAddress()
+        }
+        try:
+            response = requests.post(url, headers=headers,data=json.dumps(data))
+        except:
+            print('Failed to send token.')
+            print(response.json())
+            raise Exception('Failed to send Token')
+        if response.json()['success']:
+            print(f'Sent {amount1} {token1} to {address1}.')
+            self.refreshWallet()
+            return response.json()           
+        else:
+            print('Failed to send transaction.')
+            print(response.json())
+            raise Exception('Failed to send transaction')
     
 class Tx(models.Model):
     txid_receive=models.CharField(max_length=1000,null=True)

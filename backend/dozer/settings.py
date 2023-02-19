@@ -42,7 +42,6 @@ RECEIVE_ADDRESS=os.environ.get('RECEIVE_ADDRESS')
 
 ADMIN_DJANGO_PASSWORD=os.environ.get('ADMIN_DJANGO_PASSWORD')
 
-FEES=os.environ.get('FEES')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
